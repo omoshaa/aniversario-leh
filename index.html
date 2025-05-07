@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz Aniversário, Leh!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Quicksand:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      font-family: 'Quicksand', sans-serif;
+      scroll-behavior: smooth;
+      background: linear-gradient(135deg, #fff0f5 0%, #fff9fb 100%);
+      overflow-x: hidden;
+      position: relative;
+      color: #4b2c31;
+    }
+
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ff5f6d;
+      transform: rotate(45deg);
+      animation: float 8s linear infinite;
+      opacity: 0.8;
+      filter: drop-shadow(0 0 5px rgba(255, 95, 109, 0.5));
+    }
+
+    .heart::before, .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: inherit;
+      border-radius: 50%;
+    }
+
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { top: 0; left: -10px; }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
+      50% { opacity: 0.8; }
+      100% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes shake {
+      0% { transform: translate(1px, 1px); }
+      25% { transform: translate(-1px, 2px); }
+      50% { transform: translate(-3px, 1px); }
+      75% { transform: translate(2px, -1px); }
+      100% { transform: translate(1px, 1px); }
+    }
+
+    .section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 60px 20px;
+      scroll-snap-align: start;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      margin: 20px;
+      transition: all 0.6s ease-in-out;
+      z-index: 1;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      animation: pulse 8s infinite;
+      overflow: hidden; /* Adicionado para evitar problemas de rolagem */
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      color: #cc2b5e;
+      font-size: 3.5em;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      font-family: 'Parisienne', cursive;
+      color: #cc2b5e;
+      font-size: 2.8em;
+      margin-bottom: 20px;
+    }
+
+    p, li {
+      font-size: 1.2em;
+      max-width: 700px;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    button {
+      margin: 20px 10px;
+      padding: 15px 35px;
+      font-size: 1em;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(to right, #ff5f6d, #ff8e53);
+      color: white;
+      box-shadow: 0 4px 15px rgba(255, 95, 109, 0.4);
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 600;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(255, 95, 109, 0.6);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .momento {
+      background: #ffd6e0;
+      border-radius: 20px;
+      padding: 20px;
+      width: 280px;
+      margin: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .momento:hover {
+      transform: translateY(-10px);
+    }
+
+    .momento img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      max-width: 600px;
+    }
+
+    ul li {
+      margin: 10px 0;
+      padding: 10px;
+      background: rgba(255, 214, 224, 0.3);
+      border-radius: 10px;
+      transition: background 0.3s;
+    }
+
+    ul li:hover {
+      background: rgba(255, 214, 224, 0.6);
+    }
+
+    ul li::before {
+      content: "💖 ";
+    }
+
+    .chocolate-message {
+      font-size: 1.5em;
+      color: #cc2b5e;
+      margin-top: 20px;
+      font-weight: bold;
+      animation: shake 0.5s infinite;
+    }
+
+    .cachorrinho-img {
+      margin-top: 30px;
+      width: 200px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 1em;
+      color: #999;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-direction: column;
+    }
+
+    .insta-logo {
+      width: 30px;
+      transition: transform 0.3s;
+    }
+
+    .insta-logo:hover {
+      transform: scale(1.2);
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .gallery img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 15px;
+      transition: all 0.3s;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .gallery img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+
+    .love-letter {
+      background: rgba(255, 214, 224, 0.3);
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 700px;
+      margin: 20px 0;
+      border: 1px solid rgba(255, 182, 193, 0.5);
+      font-style: italic;
+      line-height: 1.8;
+      text-align: left;
+      position: relative;
+    }
+
+    .love-letter::before {
+      content: "❝";
+      font-size: 80px;
+      position: absolute;
+      top: -20px;
+      left: 10px;
+      color: rgba(204, 43, 94, 0.2);
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .special-btn {
+      background: linear-gradient(to right, #cc2b5e, #753a88);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .special-btn::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 200%;
+      height: 200%;
+      background: rgba(255,255,255,0.2);
+      transform: rotate(30deg);
+      transition: all 0.3s;
+    }
+
+    .special-btn:hover::after {
+      left: 100%;
+    }
+
+    /* Estilos adicionados para corrigir os problemas */
+    .chocolate-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin-top: 30px;
+      width: 100%;
+      position: relative;
+      height: 80px;
+    }
+
+    .chocolate-buttons button {
+      position: static;
+      margin: 0;
+      transform: none !important;
+    }
+
+    /* Melhorias na rolagem */
+    body {
+      overscroll-behavior-y: contain;
+    }
+
+    .section {
+      will-change: transform;
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts" id="heart-container"></div>
+
+  <!-- Página 1 - Introdução -->
+  <div id="pagina1" class="section">
+    <h1>Feliz Aniversário, Leh! 🎉</h1>
+    <p>Hoje o mundo fica mais bonito porque é o dia em que você nasceu!</p>
+    <p>Preparei essa surpresa especial para celebrar você, a pessoa mais incrível que conheço.</p>
+    <button class="special-btn" onclick="mostrarPagina(2)">Começar a Surpresa</button>
+  </div>
+
+  <!-- Página 2 - Mensagem Especial -->
+  <div id="pagina2" class="section hidden">
+    <h2>Você é Única</h2>
+    <p>Seu sorriso ilumina meus dias, seu jeito me conquista a cada momento, e seu coração é o lugar mais bonito do mundo.</p>
+    <div class="love-letter">
+      <p>Leh, você é a combinação perfeita de força e delicadeza. Cada dia ao seu lado é um presente que eu guardo com todo cuidado no meu coração.</p>
+    </div>
+    <div class="nav-buttons">
+      <button onclick="mostrarPagina(1)">Voltar</button>
+      <button class="special-btn" onclick="mostrarPagina(3)">Continuar</button>
+    </div>
+  </div>
+
+  <!-- Página 3 - Nossa História -->
+  <div id="pagina3" class="section hidden">
+    <h2>Nossa Jornada</h2>
+    <p>Uma linha do tempo do nosso amor:</p>
+    <ul>
+      <li><strong>2023:</strong> Quando nossos olhos se encontraram e tudo começou...</li>
+      <li><strong>2024:</strong> Descobrindo juntos o quanto somos especiais um para o outro</li>
+      <li><strong>2025:</strong> Construindo sonhos e planejando um futuro cheio de amor</li>
+    </ul>
+    <div class="nav-buttons">
+      <button onclick="mostrarPagina(2)">Voltar</button>
+      <button class="special-btn" onclick="mostrarPagina(4)">Ver Fotos</button>
+    </div>
+  </div>
+
+  <!-- Página 4 - Galeria de Fotos -->
+  <div id="pagina4" class="section hidden">
+    <h2>Nossos Momentos</h2>
+    <p>Algumas das memórias mais especiais que guardo no meu coração:</p>
+    
+    <div class="gallery">
+      <div class="momento">
+        <img src="foto1.jpg" alt="Nosso primeiro encontro">
+        <p>O início de tudo, cheio de expectativas e borboletas no estômago</p>
+      </div>
+      <div class="momento">
+        <img src="foto2.jpg" alt="Momentos felizes">
+        <p>Dias comuns que se tornaram extraordinários porque estivemos juntos</p>
+      </div>
+      <div class="momento">
+        <img src="foto3.jpg" alt="Aventuras">
+        <p>Aventuras que mostram como somos bons companheiros</p>
+      </div>
+    </div>
+    
+    <div class="nav-buttons">
+      <button onclick="mostrarPagina(3)">Voltar</button>
+      <button class="special-btn" onclick="mostrarPagina(5)">Próxima Surpresa</button>
+    </div>
+  </div>
+
+  <!-- Página 5 - Motivos para Amar -->
+  <div id="pagina5" class="section hidden">
+    <h2>Razões para Te Amar</h2>
+    <p>Aqui estão só algumas das milhares de razões pelas quais você é especial:</p>
+    <ul>
+        <li>Seus olhos refletem a imensidão e a pureza da sua alma.</li>
+        <li>Seu sorriso é meu refúgio favorito, onde o mundo faz sentido.</li>
+        <li>Seu abraço tem o poder de curar qualquer tempestade dentro de mim.</li>
+        <li>Sua risada é a melodia que dá ritmo aos meus dias.</li>
+        <li>Seu coração é um lar generoso, onde o amor floresce sem esforço.</li>
+        <li>Seu jeito único de enxergar a vida me ensina a ser mais leve.</li>
+        <li>Você desperta em mim a vontade de evoluir, de ser melhor para nós.</li>
+        <li>Seu toque silencia minhas angústias e acalma minha alma.</li>
+        <li>Seu olhar me faz sentir amado de um jeito que palavras não alcançam.</li>
+        <li>Você é meu poema favorito escrito pela vida.</li>
+    </ul>
+    <div class="nav-buttons">
+      <button onclick="mostrarPagina(4)">Voltar</button>
+      <button class="special-btn" onclick="mostrarPagina(6)">Brincar</button>
+    </div>
+  </div>
+
+<!-- Página 6 - Jogo Interativo -->
+  <div id="pagina6" class="section hidden">
+    <h2>Jogo do Chocolate</h2>
+    <p>Você quer um chocolate e um presentinho? (eu sei que você adora!)</p>
+    <div class="chocolate-buttons" id="chocolate-container">
+      <button id="naoBtn">Não</button>
+      <button onclick="mostrarPagina(7)">Sim</button>
+    </div>
+    <p class="chocolate-message hidden" id="chocolate-message">Sabia que você não resistiria a um chocolate!</p>
+  </div>
+
+  <!-- Página 7 - Final -->
+  <div id="pagina7" class="section hidden">
+    <h2>Feliz Aniversário, Leh!</h2>
+    <p>Leh, que este novo ano da sua vida seja repleto de alegrias, conquistas e muito amor.</p>
+    <p>Obrigado por ser quem você é e por permitir que eu faça parte da sua vida.</p>
+    <p>Eu te amo mais do que todas as palavras deste mundo poderiam expressar!</p>
+    
+    <div class="love-letter">
+      <p>Querida Leh,<br><br>
+      Hoje é o seu dia, mas o presente é meu, por ter você na minha vida. Cada momento ao seu lado é um tesouro que guardo com carinho no meu coração. Que possamos comemorar muitos e muitos aniversários juntos!<br><br>
+      Com todo meu amor,<br>
+      Moisés Filipe ❤</p>
+    </div>
+    
+    <a href="https://wa.me/5519971154452" target="_blank">
+      <button class="special-btn">Me conte o que achou 💬</button>
+    </a>
+    
+    <img src="cachorrinho.jpg" class="cachorrinho-img" alt="Cachorrinho fofo" onerror="this.style.display='none'">
+    
+    <footer>
+      <p>Feito com todo carinho do mundo por Moisés Filipe</p>
+      <a href="https://instagram.com/dupe_mosh" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" class="insta-logo" alt="Instagram">
+      </a>
+    </footer>
+  </div>
+
+  <script>
+    // Sistema de navegação entre páginas
+    function mostrarPagina(num) {
+      for (let i = 1; i <= 7; i++) {
+        document.getElementById('pagina' + i)?.classList.add('hidden');
+      }
+      document.getElementById('pagina' + num)?.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+      // Efeito especial para a mensagem do chocolate
+      if (num === 7) {
+        document.getElementById('chocolate-message').classList.remove('hidden');
+      }
+    }
+
+    // Corações flutuantes coloridos
+    const cores = ["#ff5f6d", "#ff8e53", "#ff69b4", "#ff1493", "#db7093", "#ff6b6b", "#ff9e7d"];
+    const container = document.getElementById("heart-container");
+
+    for (let i = 0; i < 80; i++) {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.top = Math.random() * 100 + "vh";
+      heart.style.backgroundColor = cores[Math.floor(Math.random() * cores.length)];
+      heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+      heart.style.animationDelay = (Math.random() * 5) + "s";
+      heart.style.opacity = 0.3 + Math.random() * 0.7;
+      heart.style.width = (15 + Math.random() * 15) + "px";
+      heart.style.height = heart.style.width;
+      container.appendChild(heart);
+    }
+
+    // Botão "Não" do chocolate foge quando tentam clicar nele
+    const naoBtn = document.getElementById("naoBtn");
+    const chocolateContainer = document.getElementById("chocolate-container");
+    
+    if (naoBtn) {
+      // Configurações do movimento
+      let moveCount = 0;
+      const maxMoves = 15; // Quantidade máxima de fugas antes de forçar o "Sim"
+      
+      naoBtn.addEventListener("mouseover", moveButton);
+      naoBtn.addEventListener("touchstart", moveButton);
+      naoBtn.addEventListener("click", function(e) {
+        e.preventDefault();
+        moveButton();
+      });
+      
+      function moveButton() {
+        moveCount++;
+        
+        if (moveCount >= maxMoves) {
+          // Depois de muitas tentativas, força o "Sim"
+          document.getElementById("chocolate-message").classList.remove("hidden");
+          naoBtn.style.display = "none";
+          return;
+        }
+        
+        const containerRect = chocolateContainer.getBoundingClientRect();
+        const btnRect = naoBtn.getBoundingClientRect();
+        
+        // Calcula nova posição garantindo que o botão não saia do container
+        const maxLeft = containerRect.width - btnRect.width;
+        const maxTop = containerRect.height - btnRect.height;
+        
+        // Gera nova posição que não seja muito próxima da atual
+        let newLeft, newTop;
+        do {
+          newLeft = Math.random() * maxLeft;
+          newTop = Math.random() * maxTop;
+        } while (
+          Math.abs(newLeft - parseInt(naoBtn.style.left || 0)) < 50 && 
+          Math.abs(newTop - parseInt(naoBtn.style.top || 0)) < 50
+        );
+        
+        // Aplica a nova posição com animação
+        naoBtn.style.position = "absolute";
+        naoBtn.style.left = newLeft + "px";
+        naoBtn.style.top = newTop + "px";
+        naoBtn.style.transition = "all 0.3s ease-out";
+      }
+    }
+
+
+    // Efeito de confete ao chegar na última página
+    function lancarConfete() {
+      // Implementação simples de confete
+      for (let i = 0; i < 100; i++) {
+        const confete = document.createElement("div");
+        confete.style.position = "fixed";
+        confete.style.width = "10px";
+        confete.style.height = "10px";
+        confete.style.backgroundColor = cores[Math.floor(Math.random() * cores.length)];
+        confete.style.borderRadius = "50%";
+        confete.style.left = Math.random() * 100 + "vw";
+        confete.style.top = "-10px";
+        confete.style.zIndex = "9999";
+        confete.style.animation = `confete-fall ${2 + Math.random() * 3}s linear forwards`;
+        document.body.appendChild(confete);
+        
+        // Remove o confete após a animação
+        setTimeout(() => {
+          confete.remove();
+        }, 3000);
+      }
+    }
+
+    // Adiciona a animação de confete
+    const style = document.createElement("style");
+    style.innerHTML = `
+      @keyframes confete-fall {
+        to {
+          transform: translateY(100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Dispara confete na última página
+    document.querySelector("button[onclick='mostrarPagina(7)']").addEventListener("click", lancarConfete);
+
+    // Melhorias na rolagem
+    document.addEventListener('wheel', function(e) {
+      // Previne o comportamento padrão para melhorar a performance
+      if (e.deltaY > 0 || e.deltaY < 0) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+  </script>
+</body>
+</html>
